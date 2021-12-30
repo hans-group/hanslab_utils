@@ -11,13 +11,20 @@ pub struct Config {
     pub potcar_path: String,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct PotcarData {
+    pub element: String,
+    pub potcar_name: String,
+    pub enmax: i32,
+    pub recommended: bool,
+}
+
 impl Config {
     pub fn read(filepath: PathBuf) -> Config {
         let config_file = fs::read_to_string(filepath);
         match config_file {
-            Ok(contents) => {
-                let config_data: Config =
-                    serde_json::from_str(&contents).expect("Error in parsing json");
+            Ok(c) => {
+                let config_data: Config = serde_json::from_str(&c).expect("Parse error");
                 config_data
             }
             Err(msg) => {
@@ -27,20 +34,11 @@ impl Config {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct PotcarData {
-    pub element: String,
-    pub potcar_name: String,
-    pub enmax: i32,
-    pub recommended: bool,
-}
-
 pub fn get_potcar_list(filepath: PathBuf) -> Vec<PotcarData> {
     let config_file = fs::read_to_string(filepath);
     match config_file {
-        Ok(contents) => {
-            let potcar_list: Vec<PotcarData> =
-                serde_json::from_str(&contents).expect("Error in parsing json");
+        Ok(c) => {
+            let potcar_list: Vec<PotcarData> = serde_json::from_str(&c).expect("Parse error");
             potcar_list
         }
         Err(msg) => {
