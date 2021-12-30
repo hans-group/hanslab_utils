@@ -1,59 +1,81 @@
 use inquire::formatter::OptionFormatter;
 use inquire::Select;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::error::Error;
-use std::ffi::OsString;
 use std::fs::{self, File};
 use std::io::Write;
 
-const POTCAR_FILEPATH_PREFIX: &str = "/TGM/Apps/VASP/POTCAR/2.POTPAW.PBE.54.RECOMMEND";
+#[derive(Serialize, Deserialize)]
+pub struct Config {
+    pub potcar_path: String,
+}
 
+impl Config {
+    pub fn new() -> Config {
+        let config_path = {
+            let mut home_path = home::home_dir().unwrap();
+            home_path.push(".config/pos2pot/config.json");
+            home_path
+        };
+        let config_file = fs::read_to_string(config_path);
+        match config_file {
+            Ok(contents) => {
+                let config_data: Config =
+                    serde_json::from_str(&contents).expect("Error in parsing json");
+                config_data
+            }
+            Err(msg) => {
+                panic!("{}", msg);
+            }
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct PotcarData {
     pub element: String,
-    pub name: String,
-    pub encut: i32,
+    pub potcar_name: String,
+    pub enmax: i32,
     pub recommended: bool,
 }
 
-fn read_csv(file_path: &OsString) -> Result<csv::Reader<std::fs::File>, Box<dyn Error>> {
-    let file = File::open(file_path)?;
-    let rdr = csv::Reader::from_reader(file);
-    Ok(rdr)
-}
-pub fn parse_potcar_table(filename: &OsString) -> Vec<PotcarData> {
-    let mut potcar_table: Vec<PotcarData> = vec![];
-    let mut rdr = read_csv(filename).expect("Error in reading file");
-    for record in rdr.records() {
-        let record = record.unwrap();
-        let data = PotcarData {
-            element: String::from(&record[0]),
-            name: String::from(&record[1]),
-            encut: record[2].parse().unwrap(),
-            recommended: String::from(&record[3])
-                .to_lowercase()
-                .parse()
-                .expect("Invalid string for boolean type"),
-        };
-        potcar_table.push(data);
+pub fn get_potcar_list() -> Vec<PotcarData> {
+    let config_path = {
+        let mut home_path = home::home_dir().unwrap();
+        home_path.push(".config/pos2pot/potcar.json");
+        home_path
+    };
+    let config_file = fs::read_to_string(config_path);
+    match config_file {
+        Ok(contents) => {
+            let potcar_list: Vec<PotcarData> =
+                serde_json::from_str(&contents).expect("Error in parsing json");
+            potcar_list
+        }
+        Err(msg) => {
+            panic!("{}", msg);
+        }
     }
-
-    potcar_table
 }
 
-fn get_recommended_potcar(elem: &str, potcar_table: &Vec<PotcarData>) -> String {
+fn get_recommended_potcar(elem: &str, potcar_data: &Vec<PotcarData>, potcar_path: &str) -> String {
     let mut filepath: String = String::new();
-    for potcar in potcar_table {
+    for potcar in potcar_data {
         if (potcar.element == elem) && (potcar.recommended) {
-            filepath = format!("{}/{}/POTCAR", POTCAR_FILEPATH_PREFIX, potcar.name).to_string();
+            filepath = format!("{}/{}/POTCAR", potcar_path, potcar.potcar_name).to_string();
         }
     }
     filepath
 }
 
-pub fn write_recommended_potcar(elems: &Vec<String>, potcar_table: &Vec<PotcarData>) {
+pub fn write_recommended_potcar(
+    elems: &Vec<String>,
+    potcar_data: &Vec<PotcarData>,
+    potcar_path: &str,
+) {
     let mut file = File::create("POTCAR").expect("Creation failed");
     for elem in elems {
-        let recommended = get_recommended_potcar(elem, potcar_table);
+        let recommended = get_recommended_potcar(elem, potcar_data, potcar_path);
         let potcar_contents = fs::read_to_string(recommended).expect("Error in reading POTCAR");
         file.write_all(potcar_contents.as_bytes())
             .expect("Failed to write");
@@ -61,7 +83,11 @@ pub fn write_recommended_potcar(elems: &Vec<String>, potcar_table: &Vec<PotcarDa
     println!("Wrote POTCAR sucessfully");
 }
 
-pub fn write_potcar_manually(elems: &Vec<String>, potcar_table: &Vec<PotcarData>) {
+pub fn write_potcar_manually(
+    elems: &Vec<String>,
+    potcar_data: &Vec<PotcarData>,
+    potcar_path: &str,
+) {
     let formatter: OptionFormatter<String> = &|i| {
         let words: Vec<String> = i
             .to_string()
@@ -74,12 +100,12 @@ pub fn write_potcar_manually(elems: &Vec<String>, potcar_table: &Vec<PotcarData>
     for elem in elems {
         let mut potcar_list: Vec<String> = vec![];
         let mut potcar_info_list: Vec<String> = vec![];
-        for potcar in potcar_table {
+        for potcar in potcar_data {
             if &potcar.element == elem {
-                potcar_list.push(potcar.name.clone());
+                potcar_list.push(potcar.potcar_name.clone());
                 let potcar_info: String = format!(
                     "{:<10}{:<15}{:<6}",
-                    potcar.name, potcar.encut, potcar.recommended
+                    potcar.potcar_name, potcar.enmax, potcar.recommended
                 );
                 potcar_info_list.push(potcar_info);
             }
@@ -102,8 +128,7 @@ pub fn write_potcar_manually(elems: &Vec<String>, potcar_table: &Vec<PotcarData>
         .unwrap();
 
         let selected_potcar_name = potcar_info_table.get(&potcar_name).unwrap();
-        let filepath =
-            format!("{}/{}/POTCAR", POTCAR_FILEPATH_PREFIX, selected_potcar_name).to_string();
+        let filepath = format!("{}/{}/POTCAR", potcar_path, selected_potcar_name).to_string();
 
         let potcar_contents = fs::read_to_string(filepath).expect("Error in reading POTCAR");
         file.write_all(potcar_contents.as_bytes())
