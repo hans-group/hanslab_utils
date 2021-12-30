@@ -1,3 +1,5 @@
+/// Parse POSCAR. Currently implemented feature is reading elems.
+/// TODO: add Poscar struct
 use std::error::Error;
 use std::fs::File;
 use std::io::BufRead;
