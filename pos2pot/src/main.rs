@@ -1,6 +1,6 @@
+use pos2pot::{parse_potcar_table, write_potcar_manually, write_recommended_potcar};
 use std::{env, ffi::OsString, fmt, process};
 use vasp_parser::poscar::read_elems;
-use vasp_parser::potcar::{parse_potcar_table, write_potcar_manually, write_recommended_potcar};
 
 use inquire::Select;
 

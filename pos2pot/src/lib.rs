@@ -20,7 +20,6 @@ fn read_csv(file_path: &OsString) -> Result<csv::Reader<std::fs::File>, Box<dyn 
     let rdr = csv::Reader::from_reader(file);
     Ok(rdr)
 }
-
 pub fn parse_potcar_table(filename: &OsString) -> Vec<PotcarData> {
     let mut potcar_table: Vec<PotcarData> = vec![];
     let mut rdr = read_csv(filename).expect("Error in reading file");
