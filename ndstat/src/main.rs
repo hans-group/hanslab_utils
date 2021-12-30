@@ -37,7 +37,7 @@ fn main() {
 
     for (line, owner) in pestat_output.lines().skip(2).zip(node_owners.iter()) {
         let mut row: Vec<&str> = line.split_whitespace().collect();
-        let mut color = Color::White;
+        let mut color = Color::Reset;
         if row.len() == 5 {
             row.push("None");
             color = Color::Green;
