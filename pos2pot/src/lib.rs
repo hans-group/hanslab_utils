@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::Write;
+use std::path::PathBuf;
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
@@ -11,13 +12,8 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new() -> Config {
-        let config_path = {
-            let mut home_path = home::home_dir().unwrap();
-            home_path.push(".config/pos2pot/config.json");
-            home_path
-        };
-        let config_file = fs::read_to_string(config_path);
+    pub fn read(filepath: PathBuf) -> Config {
+        let config_file = fs::read_to_string(filepath);
         match config_file {
             Ok(contents) => {
                 let config_data: Config =
@@ -39,13 +35,8 @@ pub struct PotcarData {
     pub recommended: bool,
 }
 
-pub fn get_potcar_list() -> Vec<PotcarData> {
-    let config_path = {
-        let mut home_path = home::home_dir().unwrap();
-        home_path.push(".config/pos2pot/potcar.json");
-        home_path
-    };
-    let config_file = fs::read_to_string(config_path);
+pub fn get_potcar_list(filepath: PathBuf) -> Vec<PotcarData> {
+    let config_file = fs::read_to_string(filepath);
     match config_file {
         Ok(contents) => {
             let potcar_list: Vec<PotcarData> =

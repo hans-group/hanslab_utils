@@ -28,9 +28,10 @@ impl fmt::Display for WriteMode {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = Config::new();
+    let config_path = home::home_dir().unwrap().join(".config/pos2pot");
+    let config = Config::read(config_path.join("config.json"));
 
-    let potcar_table = get_potcar_list();
+    let potcar_table = get_potcar_list(config_path.join("potcar.json"));
 
     // Read elements in POSCAR
     let elems = read_elems("POSCAR").expect("Error when reading POSCAR");
