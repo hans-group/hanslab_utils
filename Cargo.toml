@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "pos2pot",
+    "vasp_parser"
+]
