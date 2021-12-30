@@ -1,3 +1,3 @@
-# vasptools
+# hanslab_utils
 
-vasp tools written in rust. Currently WIP.
+Some utils written in rust. Currently WIP.
