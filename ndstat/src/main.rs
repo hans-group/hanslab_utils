@@ -42,6 +42,9 @@ fn main() {
             row.push("None");
             color = Color::Green;
         }
+        if row[5] == std::env::var("USER").unwrap() {
+            color = Color::Blue;
+        }
         if row[2] == "down*" {
             color = Color::Red;
         }
