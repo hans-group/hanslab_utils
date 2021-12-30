@@ -42,7 +42,7 @@ fn main() {
             row.push("None");
             color = Color::Green;
         }
-        if row[1] == "down*" {
+        if row[2] == "down*" {
             color = Color::Red;
         }
         row.push(*owner);
