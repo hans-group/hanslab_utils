@@ -47,7 +47,7 @@ pub fn get_potcar_list(filepath: PathBuf) -> Vec<PotcarData> {
     }
 }
 
-fn get_recommended_potcar(elem: &str, potcar_data: &Vec<PotcarData>, potcar_path: &str) -> String {
+fn get_recommended_potcar(elem: &str, potcar_data: &[PotcarData], potcar_path: &str) -> String {
     let mut filepath: String = String::new();
     for potcar in potcar_data {
         if (potcar.element == elem) && (potcar.recommended) {
@@ -57,11 +57,7 @@ fn get_recommended_potcar(elem: &str, potcar_data: &Vec<PotcarData>, potcar_path
     filepath
 }
 
-pub fn write_recommended_potcar(
-    elems: &Vec<String>,
-    potcar_data: &Vec<PotcarData>,
-    potcar_path: &str,
-) {
+pub fn write_recommended_potcar(elems: &[String], potcar_data: &[PotcarData], potcar_path: &str) {
     let mut file = File::create("POTCAR").expect("Creation failed");
     for elem in elems {
         let recommended = get_recommended_potcar(elem, potcar_data, potcar_path);
@@ -72,11 +68,7 @@ pub fn write_recommended_potcar(
     println!("Wrote POTCAR sucessfully");
 }
 
-pub fn write_potcar_manually(
-    elems: &Vec<String>,
-    potcar_data: &Vec<PotcarData>,
-    potcar_path: &str,
-) {
+pub fn write_potcar_manually(elems: &[String], potcar_data: &[PotcarData], potcar_path: &str) {
     let formatter: OptionFormatter<String> = &|i| {
         let words: Vec<String> = i
             .to_string()

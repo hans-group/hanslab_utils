@@ -25,7 +25,7 @@ impl Poscar {
         let scaling_factor: f64 = lines[1].trim().parse().unwrap();
 
         let skip_to_pos: usize = {
-            if lines[7].starts_with("S") {
+            if lines[7].starts_with('S') {
                 9
             } else {
                 8
@@ -56,10 +56,9 @@ impl Poscar {
         }
     }
 
-    fn get_cell(lines: &Vec<String>, scaling_factor: f64) -> Array2<f64> {
+    fn get_cell(lines: &[String], scaling_factor: f64) -> Array2<f64> {
         let mut _cell = vec![];
-        for i in 2..=4 {
-            let l: &str = &lines[i];
+        for l in lines.iter().take(5).skip(2) {
             let row = l
                 .split_whitespace()
                 .map(|x| x.trim().parse::<f64>().expect("Error in parsing number"));
@@ -68,7 +67,7 @@ impl Poscar {
         Array2::from_shape_vec((3, 3), _cell).unwrap()
     }
 
-    fn get_positions(lines: &Vec<String>, num_atoms: usize, skip_num: usize) -> Array2<f64> {
+    fn get_positions(lines: &[String], num_atoms: usize, skip_num: usize) -> Array2<f64> {
         let mut _positions = vec![];
         for l in lines.iter().skip(skip_num) {
             let row = l
@@ -81,7 +80,7 @@ impl Poscar {
     }
 
     fn get_selective_dynamics(
-        lines: &Vec<String>,
+        lines: &[String],
         num_atoms: usize,
         skip_num: usize,
     ) -> Option<Array2<bool>> {

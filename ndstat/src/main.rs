@@ -9,7 +9,7 @@ fn main() {
     let node_owners: Vec<&str> = node_owners
         .lines()
         .skip(1)
-        .map(|s| s.split(",").last().unwrap())
+        .map(|s| s.split(',').last().unwrap())
         .collect();
 
     table
