@@ -1,16 +1,6 @@
 #!/bin/bash
 BINARIES=("pos2pot" "ndstat")
 
-if [ ! -d "$HOME/.local/bin" ];then
-    echo "Creating $HOME/.local/bin"
-    mkdir -p "$HOME/.local/bin"
-fi
-
-if [[ $PATH != *"$HOME/.local/bin"* ]]; then
-    echo "Adding $HOME/.local/bin to PATH"
-    echo "export PATH=$HOME/.local/bin:$PATH" >> "$HOME/.bashrc"
-fi
-
 # Install rustup
 if ! command -v cargo &> /dev/null; then
     echo "Rust not found. Installing..."
@@ -18,9 +8,8 @@ if ! command -v cargo &> /dev/null; then
     source $HOME/.cargo/env
 fi
 
-cargo build --release
 for bin in ${BINARIES[@]};do
-    cp target/release/$bin $HOME/.local/bin/
+    cargo install --git https://github.com/mjhong0708/hanslab_utils $bin
 done
 
 
