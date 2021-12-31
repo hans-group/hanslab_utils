@@ -35,6 +35,7 @@ bash install.sh
 - Run `cargo build --release` to generate binaries.
 - Copy binaries in `target/release/` to directory in `PATH`, such as `~/.local/bin`.
   - Currently `pos2pot` and `ndstat` exist.
+- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure.
 
 ## How to use
 
