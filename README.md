@@ -18,6 +18,18 @@ These tools were initially developed with `python`, but migrated to `rust`.
 
 ## Installation
 
+### Automatic install
+
+Run following commands to install automatically.
+
+```bash
+git clone https://github.com/mjhong0708/hanslab_utils
+cd hanslab_utils
+bash install.sh
+```
+
+### Manual
+
 - Install `rustup`. [See here](https://rustup.rs/).
 - Clone this repository.
 - Run `cargo build --release` to generate binaries.
