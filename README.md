@@ -33,17 +33,7 @@ These tools were initially developed with `python`, but migrated to `rust`.
     cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
   ```
 
-- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure.
-
-### Automatic install
-
-Run following commands to install automatically.
-
-```bash
-git clone https://github.com/mjhong0708/hanslab_utils
-cd hanslab_utils
-bash install.sh
-```
+- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure `pos2pot`.
 
 ## How to use
 
