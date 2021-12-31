@@ -30,5 +30,14 @@ if [ ! -d "$HOME/.config/pos2pot" ];then
 fi
 
 cd "$HOME/.config/pos2pot"
+
+if [ -f "$HOME/.config/pos2pot/potcar.json" ];then
+    rm "$HOME/.config/pos2pot/potcar.json"
+fi
+
+if [ -f "$HOME/.config/pos2pot/config.json" ];then
+    rm "$HOME/.config/pos2pot/config.json"
+fi
+
 wget "https://mjhong-public.s3.ap-northeast-2.amazonaws.com/pos2pot/potcar.json"
 wget "https://mjhong-public.s3.ap-northeast-2.amazonaws.com/pos2pot/config.json"
