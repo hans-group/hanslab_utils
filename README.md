@@ -29,12 +29,11 @@ These tools were initially developed with `python`, but migrated to `rust`.
 
 - Install `ndstat`:
 
-```bash
-  cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
-```
+  ```bash
+    cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
+  ```
 
 - See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure.
-
 
 ### Automatic install
 
