@@ -37,14 +37,12 @@ These tools were initially developed with `python`, but migrated to `rust`.
 
 ## How to use
 
-See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki).
+See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) for detail.
 
-## TODO
+## Future plan
 
-### pos2pot
+> **Note**: Name of the programs may change.
 
-- Currently no todo
-
-### vasp_parser
-
-- `Poscar`: support cartesian coordinates (currently only direct)
+- `postool`: Manipulate `POSCAR`. ex) make supercell, set constraints, etc.
+- `vasp_check`: Quick check of VASP calculation results & statistics
+- `vaspmanager`: Manage VASP calculations with command line interface
