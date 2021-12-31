@@ -18,6 +18,24 @@ These tools were initially developed with `python`, but migrated to `rust`.
 
 ## Installation
 
+### Manual
+
+- Install `rustup`. [See here](https://rustup.rs/).
+- Install `pos2pot`:
+
+  ```bash
+  cargo install --git https://github.com/mjhong0708/hanslab_utils pos2pot
+  ```
+
+- Install `ndstat`:
+
+```bash
+  cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
+```
+
+- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure.
+
+
 ### Automatic install
 
 Run following commands to install automatically.
@@ -27,15 +45,6 @@ git clone https://github.com/mjhong0708/hanslab_utils
 cd hanslab_utils
 bash install.sh
 ```
-
-### Manual
-
-- Install `rustup`. [See here](https://rustup.rs/).
-- Clone this repository.
-- Run `cargo build --release` to generate binaries.
-- Copy binaries in `target/release/` to directory in `PATH`, such as `~/.local/bin`.
-  - Currently `pos2pot` and `ndstat` exist.
-- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure.
 
 ## How to use
 
