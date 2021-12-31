@@ -18,8 +18,6 @@ if ! command -v cargo &> /dev/null; then
     source $HOME/.cargo/env
 fi
 
-git clone https://github.com/mjhong0708/hanslab_utils
-cd hanslab_utils
 cargo build --release
 for bin in ${BINARIES[@]};do
     cp target/release/$bin $HOME/.local/bin/
