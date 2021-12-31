@@ -1,6 +1,20 @@
 # hanslab_utils
 
-Useful libary and command-line programs. Written in `rust`.
+Useful libary and command-line programs. Written in `rust` programming language.
+These tools were initially developed with `python`, but migrated to `rust`.
+
+## Why rust?
+
+### For users
+
+- Easy to build and install
+- Very fast (comparable to `C`/`C++`)
+
+### For developers
+
+- Good at handling errors
+- Easy to deploy (no need to consider all the dependencies...)
+- Can write fast programs with less effort than `C`/`C++`
 
 ## Installation
 
