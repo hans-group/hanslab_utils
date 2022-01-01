@@ -27,7 +27,10 @@ impl fmt::Display for WriteMode {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args = {
+        let arglist: Vec<String> = env::args().collect();
+        parse_args(arglist)
+    };
     let config_path = home::home_dir().unwrap().join(".config/pos2pot");
     let config = Config::read(config_path.join("config.json"));
 
@@ -37,7 +40,7 @@ fn main() {
     let elems = read_elems("POSCAR").expect("Error when reading POSCAR");
     println!("Found {} in POSCAR", elems.join(", "));
 
-    match parse_args(args) {
+    match args {
         RunMode::Prompt => {
             let modelist: Vec<WriteMode> =
                 vec![WriteMode::Recommended, WriteMode::Manual, WriteMode::Exit];
@@ -69,12 +72,14 @@ fn main() {
 
 fn parse_args(args: Vec<String>) -> RunMode {
     if args.len() > 2 {
-        panic!("Too many arguments. Available arguments: no arguments or 'express'");
+        eprintln!("Error: Too many arguments. Available arguments: no arguments or 'express'");
+        std::process::exit(1);
     } else if args.len() == 1 {
         RunMode::Prompt
     } else if (args.len() == 2) && (args[1] == *"express") {
         RunMode::Express
     } else {
-        panic!("Unknown argument. Available arguments: no arguments or 'express'");
+        eprintln!("Error: Unknown argument. Available arguments: no arguments or 'express'");
+        std::process::exit(1);
     }
 }

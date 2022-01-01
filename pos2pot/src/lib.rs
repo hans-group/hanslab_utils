@@ -24,7 +24,8 @@ impl Config {
         let config_file = fs::read_to_string(filepath);
         match config_file {
             Ok(c) => {
-                let config_data: Config = serde_json::from_str(&c).expect("Parse error");
+                let config_data: Config =
+                    serde_json::from_str(&c).expect("Error in reading config.json");
                 config_data
             }
             Err(msg) => {
@@ -38,7 +39,8 @@ pub fn get_potcar_list(filepath: PathBuf) -> Vec<PotcarData> {
     let config_file = fs::read_to_string(filepath);
     match config_file {
         Ok(c) => {
-            let potcar_list: Vec<PotcarData> = serde_json::from_str(&c).expect("Parse error");
+            let potcar_list: Vec<PotcarData> =
+                serde_json::from_str(&c).expect("Error in reading potcar.json");
             potcar_list
         }
         Err(msg) => {
@@ -58,7 +60,7 @@ fn get_recommended_potcar(elem: &str, potcar_data: &[PotcarData], potcar_path: &
 }
 
 pub fn write_recommended_potcar(elems: &[String], potcar_data: &[PotcarData], potcar_path: &str) {
-    let mut file = File::create("POTCAR").expect("Creation failed");
+    let mut file = File::create("POTCAR").expect("Failed creating POTCAR");
     for elem in elems {
         let recommended = get_recommended_potcar(elem, potcar_data, potcar_path);
         let potcar_contents = fs::read_to_string(recommended).expect("Error in reading POTCAR");
@@ -77,7 +79,7 @@ pub fn write_potcar_manually(elems: &[String], potcar_data: &[PotcarData], potca
             .collect();
         format!("{} selected", words[0])
     };
-    let mut file = File::create("POTCAR").expect("Creation failed");
+    let mut file = File::create("POTCAR").expect("Failed creating POTCAR");
     for elem in elems {
         let mut potcar_list: Vec<String> = vec![];
         let mut potcar_info_list: Vec<String> = vec![];
