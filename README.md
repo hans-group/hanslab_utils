@@ -20,7 +20,13 @@ These tools were initially developed with `python`, but migrated to `rust`.
 
 ### Manual
 
-- Install `rustup`. [See here](https://rustup.rs/).
+- If not installed, first install rust toolkit `rustup`. This installs `cargo` command which enables installing packages from online repository. [See here for detail](https://rustup.rs/).
+
+  ```bash
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source $HOME/.cargo/env
+  ```
+ 
 - Install `pos2pot`:
 
   ```bash
@@ -30,7 +36,7 @@ These tools were initially developed with `python`, but migrated to `rust`.
 - Install `ndstat`:
 
   ```bash
-    cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
+  cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
   ```
 
 - See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure `pos2pot`.
