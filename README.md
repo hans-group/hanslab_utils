@@ -1,24 +1,24 @@
 # hanslab_utils
 
-Useful libary and command-line programs. Written in `rust` programming language.
-These tools were initially developed with `python`, but migrated to `rust`.
+Useful libary and command-line programs.
 
-## Why rust?
+## List of programs
 
-### For users
+Grouped by used programming languages.
 
-- Easy to build and install
-- Very fast (comparable to `C`/`C++`)
+### Rust
 
-### For developers
+- `pos2pot`: POSCAR to POTCAR
+- `ndstat`: Show slurm node state
+- `qst`: Alternative of `qstat -u $USER`
 
-- Good at handling errors
-- Easy to deploy (no need to consider all the dependencies...)
-- Can write fast programs with less effort than `C`/`C++`
+### Python
+
+Nothing yet, but planned to be added.
 
 ## Installation
 
-### Manual
+### Rust programs
 
 - If not installed, first install rust toolkit `rustup`. This installs `cargo` command which enables installing packages from online repository. [See here for detail](https://rustup.rs/).
 
@@ -27,16 +27,10 @@ These tools were initially developed with `python`, but migrated to `rust`.
   source $HOME/.cargo/env
   ```
 
-- Install `pos2pot`:
+- Install programs:
 
   ```bash
-  cargo install --git https://github.com/mjhong0708/hanslab_utils pos2pot
-  ```
-
-- Install `ndstat`:
-
-  ```bash
-  cargo install --git https://github.com/mjhong0708/hanslab_utils ndstat
+  cargo install --git https://github.com/mjhong0708/hanslab_utils <program_name>
   ```
 
 - See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure `pos2pot`.
