@@ -1,8 +1,7 @@
 [workspace]
 members = [
-    "pos2pot",
-    "vasp_parser",
-    "ndstat"
+    "rust/binary/*",
+    "rust/lib/*",
 ]
 
 [profile.dev]
