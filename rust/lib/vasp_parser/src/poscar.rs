@@ -129,10 +129,10 @@ mod tests {
             .output()
             .unwrap();
         println!("{:?}", pwd);
-        let poscar = Poscar::from_file("../tests/selective_dyn.vasp");
+        let poscar = Poscar::from_file("../../tests/selective_dyn.vasp");
         println!("with_selective_dyn: {:#?}", poscar);
 
-        let poscar = Poscar::from_file("../tests/no_selective_dyn.vasp");
+        let poscar = Poscar::from_file("../../tests/no_selective_dyn.vasp");
         println!("with_selective_dyn: {:#?}", poscar);
     }
 }
