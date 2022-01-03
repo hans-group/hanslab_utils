@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ !-d "$HOME/.local/bin" ];then
+if [ ! -d "$HOME/.local/bin" ];then
   mkdir -p $HOME/.local/bin
 fi
 
