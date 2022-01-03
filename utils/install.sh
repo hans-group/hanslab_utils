@@ -5,7 +5,7 @@ function install_rust() {
 }
 
 function install_rust_binaires() {
-    BINARIES="$(ls ../rust/binary)"
+    BINARIES=(pos2pot qst ndstat)
     for bin in ${BINARIES[@]};do
         cargo install --git https://github.com/mjhong0708/hanslab_utils $bin
     done
@@ -34,10 +34,10 @@ function configure_pos2pot() {
 ### Main task starts ###
 ### Install rustup if not found
 if ! command -v cargo &> /dev/null; then
-    install_rust()
+    install_rust
     source $HOME/.cargo/env
 fi
 ### Install binary crates
-install_rust_binaires()
+install_rust_binaires
 ### Configure pos2pot automatically
-configure_pos2pot()
+configure_pos2pot
