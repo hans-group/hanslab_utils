@@ -9,9 +9,8 @@ use std::io::{BufRead, BufReader};
 pub struct Poscar {
     pub cell: Array2<f64>,
     pub positions: Array2<f64>,
-    pub elements: Vec<String>,
     pub symbols: Vec<String>,
-    pub selective_dynamics: Option<Array2<bool>>,
+    pub selective_dynamics: Option<Array2<char>>,
 }
 
 impl Poscar {
@@ -50,7 +49,6 @@ impl Poscar {
         Poscar {
             cell,
             positions,
-            elements: elements.iter().map(|&x| x.to_string()).collect(),
             symbols,
             selective_dynamics,
         }
@@ -83,21 +81,15 @@ impl Poscar {
         lines: &[String],
         num_atoms: usize,
         skip_num: usize,
-    ) -> Option<Array2<bool>> {
+    ) -> Option<Array2<char>> {
         if skip_num == 9 {
-            let mut _positions = vec![];
+            let mut sel_dyn = vec![];
             for l in lines.iter().skip(skip_num) {
                 let row = l.split_whitespace().skip(3);
 
-                row.for_each(|x| {
-                    if x == "T" {
-                        _positions.push(true)
-                    } else {
-                        _positions.push(false)
-                    }
-                });
+                row.for_each(|x| sel_dyn.push(x.chars().nth(0).unwrap()));
             }
-            Some(Array2::from_shape_vec((num_atoms, 3), _positions).unwrap())
+            Some(Array2::from_shape_vec((num_atoms, 3), sel_dyn).unwrap())
         } else {
             None
         }
