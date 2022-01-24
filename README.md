@@ -30,14 +30,14 @@ Nothing yet, but planned to be added.
 - Install programs:
 
   ```bash
-  cargo install --git https://github.com/mjhong0708/hanslab_utils <program_name>
+  cargo install --git https://github.com/hans-group/hanslab_utils <program_name>
   ```
 
-- See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) to configure `pos2pot`.
+- See [wiki](https://github.com/hans-group/hanslab_utils/wiki) to configure `pos2pot`.
 
 ## How to use
 
-See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) for detail.
+See [wiki](https://github.com/hans-group/hanslab_utils/wiki) for detail.
 
 ## Future plan
 
@@ -52,5 +52,5 @@ See [wiki](https://github.com/mjhong0708/hanslab_utils/wiki) for detail.
 Of course, any kind of contributions are welcome!
 
 - If you are willing to contribute code directly, create a pull request.
-- If you want some new cool features, post on [feature request section](https://github.com/mjhong0708/hanslab_utils/discussions/categories/feature-request) in discussion.
-- IF you found a bug, please share on [bug report section](https://github.com/mjhong0708/hanslab_utils/discussions/categories/bug-report). Optional, but recommended template for bug reporting can be found [here](https://github.com/mjhong0708/hanslab_utils/discussions/3).
+- If you want some new cool features, post on [feature request section](https://github.com/hans-group/hanslab_utils/discussions/categories/feature-request) in discussion.
+- IF you found a bug, please share on [bug report section](https://github.com/hans-group/hanslab_utils/discussions/categories/bug-report). Optional, but recommended template for bug reporting can be found [here](https://github.com/hans-group/hanslab_utils/discussions/3).
