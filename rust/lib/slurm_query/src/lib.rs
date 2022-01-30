@@ -20,7 +20,7 @@ impl FromStr for Job {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let id = Job::extract_value(s, r"JobId=\d{6}");
-        let jobname = Job::extract_value(s, r"JobName=[\w\-_\d.]+");
+        let jobname = Job::extract_value(s, r"JobName=[\[\]\w\-_\d.]+");
         let username = Job::extract_value(s, r"UserId=\w+");
         let state = Job::extract_value(s, r"JobState=\w+");
         let partition = Job::extract_value(s, r"Partition=\w+");
