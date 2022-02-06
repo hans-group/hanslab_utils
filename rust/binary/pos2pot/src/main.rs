@@ -31,10 +31,12 @@ fn main() {
         let arglist: Vec<String> = env::args().collect();
         parse_args(arglist)
     };
-    let config_path = home::home_dir().unwrap().join(".config/pos2pot");
-    let config = Config::read(config_path.join("config.json"));
+    let config_path = home::home_dir()
+        .unwrap()
+        .join(".config/pos2pot/config.json");
+    let config = Config::read(config_path);
 
-    let potcar_table = get_potcar_list(config_path.join("potcar.json"));
+    let potcar_table = get_potcar_list();
 
     // Read elements in POSCAR
     let elems = read_elems("POSCAR").expect("Error when reading POSCAR");

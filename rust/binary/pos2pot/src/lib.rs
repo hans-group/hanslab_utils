@@ -6,6 +6,8 @@ use std::fs::{self, File};
 use std::io::Write;
 use std::path::PathBuf;
 
+const POTCAR_JSON: &str = include_str!("potcar.json");
+
 #[derive(Serialize, Deserialize)]
 pub struct Config {
     pub potcar_path: String,
@@ -35,18 +37,10 @@ impl Config {
     }
 }
 
-pub fn get_potcar_list(filepath: PathBuf) -> Vec<PotcarData> {
-    let config_file = fs::read_to_string(filepath);
-    match config_file {
-        Ok(c) => {
-            let potcar_list: Vec<PotcarData> =
-                serde_json::from_str(&c).expect("Error in reading potcar.json");
-            potcar_list
-        }
-        Err(msg) => {
-            panic!("{}", msg);
-        }
-    }
+pub fn get_potcar_list() -> Vec<PotcarData> {
+    let potcar_list: Vec<PotcarData> =
+        serde_json::from_str(POTCAR_JSON).expect("Error in reading potcar.json");
+    potcar_list
 }
 
 fn get_recommended_potcar(elem: &str, potcar_data: &[PotcarData], potcar_path: &str) -> String {
